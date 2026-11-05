@@ -1,0 +1,16 @@
+{
+  "name": "session-meter",
+  "owner": {
+    "name": "Nahim Terrazas"
+  },
+  "metadata": {
+    "description": "Mod session-meter de Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "session-meter",
+      "source": "./",
+      "description": "Velocímetro del % de contexto, tiempo de sesión, tokens y límites de uso, en tiempo real, sobre el prompt."
+    }
+  ]
+}
