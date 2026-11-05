@@ -3,7 +3,7 @@
 // Basado en el mod de ejemplo token-weather:
 // misma banda AbovePrompt, pero con totales acumulados y actualización en vivo.
 //
-// session.start: lee cuándo empezó la sesión y arranca un reloj de 5 s que
+// session.start: lee cuándo empezó la sesión y arranca un reloj de 1 minuto que
 //   redibuja la banda (el tiempo avanza aunque no haya turnos).
 // turn.step: cada respuesta del modelo (principal y subagentes). Mientras llega
 //   el streaming suma una estimación de salida (~4 caracteres por token); al
@@ -60,8 +60,10 @@ export const register: Register = on => {
 
     await readUsage($, true)
 
-    // Redibuja cada 5 segundos para que el tiempo transcurrido avance.
-    $.clock.every(5000, () => $.ui.invalidate('ui.render'))
+    // Redibuja cada minuto para que el tiempo transcurrido avance. No más
+    // seguido: cada redibujo borra la selección del mouse en algunas terminales
+    // (Cursor, VS Code), y así hay tiempo de marcar y copiar texto.
+    $.clock.every(60_000, () => $.ui.invalidate('ui.render'))
     $.ui.invalidate('ui.render')
 
     return result
@@ -313,11 +315,10 @@ function duration(ms: number, isCoarse = false): string {
   }
   const h = Math.floor(s / 3600)
   const m = Math.floor((s % 3600) / 60)
-  const sec = s % 60
   const mm = String(m).padStart(2, '0')
-  const ss = String(sec).padStart(2, '0')
 
-  return h > 0 ? `${h}h ${mm}m ${ss}s` : `${m}m ${ss}s`
+  // Sin segundos: la banda se redibuja una vez por minuto.
+  return h > 0 ? `${h}h ${mm}m` : `${m}m`
 }
 
 function short(n: number): string {

@@ -1,6 +1,6 @@
 {
   "name": "session-meter",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Muestra sobre el prompt el tiempo transcurrido de la sesión y los tokens de entrada y salida, el % de contexto y los límites de uso, en tiempo real.",
   "author": { "name": "Nain Terrazas" },
   "license": "MIT",

@@ -7,14 +7,14 @@ límites de uso del plan, actualizándose en tiempo real.
 En la terminal:
 
 ```text
-  ⣠⡶⠶⠿⠶⢶⣄    ⏱ 12m 05s   ↓ entrada 125.4k (caché 110.2k)   ↑ salida 8.2k   14 resp.
+  ⣠⡶⠶⠿⠶⢶⣄    ⏱ 12m   ↓ entrada 125.4k (caché 110.2k)   ↑ salida 8.2k   14 resp.
 ⢠⡾⠋  ⢸  ⠙⢷⡄  contexto 68.2k/200k   5h 42% (reinicia en 2h 10m)   7d 18% (reinicia en 4d 6h)
 ⣼⡇   ⣼   ⢸⣧
 ⢸⡇  34%  ⢸⡇
 ```
 
 - **Velocímetro**: arco con degradé de verde a rojo, aguja roja y el % dentro. En la terminal se dibuja en braille; en la app de escritorio, VS Code y el móvil, como imagen (SVG). En terminales de menos de 60 columnas se oculta y queda `◔ contexto N%` en texto.
-- **⏱ tiempo**: desde que empezó la sesión (`$.session.usage().startedAt`); avanza cada 5 segundos (mientras llega una respuesta se redibuja más seguido).
+- **⏱ tiempo**: desde que empezó la sesión (`$.session.usage().startedAt`); avanza cada minuto (mientras llega una respuesta se redibuja más seguido). No se redibuja más seguido porque en algunas terminales (Cursor, VS Code) cada redibujo borra la selección del mouse.
 - **↓ entrada**: suma de los tokens de entrada de cada respuesta del modelo (sin caché + leídos de caché + escritos en caché). Entre paréntesis, la parte leída de caché.
 - **↑ salida**: suma de los tokens de salida reportados por la API.
 - **+~N en curso**: estimación (~4 caracteres por token) de la respuesta que se está recibiendo; al terminar se reemplaza por el valor real.
